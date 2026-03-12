@@ -137,7 +137,7 @@ h3 {
   flex-direction: column;
   gap: 0.55rem;
   color: #374151;
-  font-size: 0.96rem;
+  font-size: 1.46rem;
 }
 
 .card-footer {

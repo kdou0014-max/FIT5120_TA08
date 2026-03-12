@@ -87,7 +87,7 @@ header {
 .eyebrow {
   margin: 0;
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   color: #6b7280;
 }
 
@@ -115,7 +115,7 @@ h2 {
 }
 
 .value {
-  font-size: 3.5rem;
+  font-size: 4.5rem;
   font-weight: 700;
 }
 
@@ -127,13 +127,13 @@ h2 {
 }
 
 .risk {
-  font-size: 1.2rem;
+  font-size: 2.2rem;
   margin: 0.2rem 0 0;
 }
 
 .warning {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: #1f2937;
   background: #fef3c7;
   padding: 0.8rem 1rem;

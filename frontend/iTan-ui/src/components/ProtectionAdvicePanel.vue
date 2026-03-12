@@ -311,7 +311,7 @@ header {
 .eyebrow {
   margin: 0;
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   color: #6b7280;
 }
 
@@ -321,12 +321,12 @@ h2 {
 
 h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
 }
 
 h4 {
   margin: 0 0 0.35rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .loading {
@@ -412,6 +412,7 @@ h4 {
   border-radius: 16px;
   padding: 1rem;
   background: #fffef7;
+  font-size: 1.2rem;
 }
 
 .icon-wrap {
@@ -421,7 +422,7 @@ h4 {
   display: grid;
   place-items: center;
   background: #fef08a;
-  font-size: 1.4rem;
+  font-size: 3.6rem;
   flex-shrink: 0;
 }
 
@@ -455,6 +456,7 @@ h4 {
   border: 1px solid #fde68a;
   border-radius: 18px;
   padding: 1rem;
+  font-size: 1.2rem;
 }
 
 .tips-list {
@@ -464,6 +466,7 @@ h4 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  font-size: 2rem;
 }
 
 .rules-list {

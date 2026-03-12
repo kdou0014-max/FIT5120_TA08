@@ -119,4 +119,30 @@ onMounted(() => {
     padding: 0 1rem 1.5rem;
   }
 }
+
+:root {
+  font-size: 18px;
+}
+
+
+body {
+  font-size: 3rem;
+  line-height: 2.6;
+}
+
+h1 {
+  font-size: 3.2rem;
+}
+
+h2 {
+  font-size: 2.6rem;
+}
+
+h3 {
+  font-size: 2.3rem;
+}
+
+p {
+  font-size: 2rem;
+}
 </style>
