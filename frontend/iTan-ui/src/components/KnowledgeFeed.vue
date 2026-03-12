@@ -18,28 +18,36 @@
       <button type="button" class="ghost" @click="$emit('refresh')">Refresh</button>
     </header>
 
-  <article class="featured" v-if="filteredItems.length">
-    <div class="featured-content">
-      <div class="featured-text">
-        <p class="tag">{{ filteredItems[0].tag }}</p>
-        <h3>{{ filteredItems[0].title }}</h3>
-        <p class="featured-summary">{{ filteredItems[0].summary }}</p>
-        <a :href="filteredItems[0].actionUrl" target="_blank" rel="noreferrer" class="link">
-          Read more ↗
-        </a>
-      </div>
+    <article class="featured" v-if="featuredItem">
+      <div class="featured-content">
+        <div class="featured-text">
+          <p class="tag">{{ featuredItem.tag }}</p>
+          <h3>{{ featuredItem.title }}</h3>
+          <p class="featured-summary">{{ featuredItem.summary }}</p>
+          <a :href="featuredItem.actionUrl" target="_blank" rel="noreferrer" class="link">
+            Read more ↗
+          </a>
+        </div>
 
-      <div class="featured-image">
-        <img
-          :src="filteredItems[0].imageUrl"
-          :alt="filteredItems[0].title"
+        <div class="featured-image">
+          <img
+            :src="featuredItem.imageUrl"
+            :alt="featuredItem.title"
+          />
+        </div>
+      </div>
+      <div v-if="filteredItems.length > 1" class="featured-dots">
+        <button
+          v-for="(item, index) in filteredItems"
+          :key="item.id"
+          :class="['dot', { active: index === featuredIndex }]"
+          @click="featuredIndex = index"
         />
       </div>
-    </div>
-  </article>
+    </article>
 
-    <div class="story-grid">
-      <article class="story-card" v-for="item in filteredItems.slice(1)" :key="item.id">
+    <div class="story-grid" v-if="secondaryItems.length">
+      <article class="story-card" v-for="item in secondaryItems" :key="item.id">
         <div class="story-card-content">
           <div class="story-text">
             <div class="story-meta">
@@ -70,7 +78,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 
 const props = defineProps({
   items: {
@@ -82,12 +90,55 @@ const props = defineProps({
 defineEmits(['refresh'])
 
 const selectedTag = ref('All')
-
 const tags = ['All', 'UV Alert', 'Tip', 'Lifestyle']
 
 const filteredItems = computed(() => {
   if (selectedTag.value === 'All') return props.items
   return props.items.filter((i) => i.tag === selectedTag.value)
+})
+
+const featuredIndex = ref(0)
+let featuredTimer = null
+
+const featuredItem = computed(() => {
+  if (!filteredItems.value.length) return null
+  return filteredItems.value[featuredIndex.value] || filteredItems.value[0]
+})
+
+const secondaryItems = computed(() => {
+  if (!filteredItems.value.length) return []
+  return filteredItems.value.filter((_, index) => index !== featuredIndex.value)
+})
+
+const startFeaturedRotation = () => {
+  stopFeaturedRotation()
+
+  if (filteredItems.value.length <= 1) return
+
+  featuredTimer = setInterval(() => {
+    featuredIndex.value =
+      (featuredIndex.value + 1) % filteredItems.value.length
+  }, 4000)
+}
+
+const stopFeaturedRotation = () => {
+  if (featuredTimer) {
+    clearInterval(featuredTimer)
+    featuredTimer = null
+  }
+}
+
+watch(filteredItems, () => {
+  featuredIndex.value = 0
+  startFeaturedRotation()
+})
+
+onMounted(() => {
+  startFeaturedRotation()
+})
+
+onBeforeUnmount(() => {
+  stopFeaturedRotation()
 })
 </script>
 
@@ -292,6 +343,30 @@ h4 {
   background: #1e3a8a;
   color: white;
   border-color: #1e3a8a;
+}
+
+.featured-dots {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(99, 102, 241, 0.25);
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.dot:hover {
+  transform: scale(1.05);
+}
+
+.dot.active {
+  background: #4f46e5;
 }
 
 .ghost {
