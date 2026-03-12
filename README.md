@@ -1,6 +1,6 @@
 # iTan MVP (Iteration 1)
 
-SunAware is a Vue 3 + Django REST Framework prototype that surfaces real-time UV alerts, skin cancer trend visualisations, and contextual protection advice for young adults in Victoria.
+iTan is a Vue 3 + Django REST Framework prototype that surfaces real-time UV alerts, skin cancer trend visualisations, and contextual protection advice for young adults in Victoria.
 
 ## Project layout
 
