@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from random import uniform
-
+import requests
+from django.conf import settings
 from core.models import Location, ProtectionRule, UVReading
 
 UV_BUCKETS = [
@@ -65,13 +66,43 @@ def mock_uv_value() -> float:
     current_hour = datetime.now().hour
     if 6 <= current_hour <= 18:
         return round(uniform(3.5, 11.0), 1)
-    return round(uniform(0.0, 2.5), 1)
+    return round(uniform(0, 2.5), 1)
 
+def get_real_uv_value(latitude: float, longitude: float) -> float:
+    api_key = settings.OPENWEATHER_API_KEY
+    if not api_key:
+        raise ValueError("open weather api key missing")
+    
+    url = "https://api.openweathermap.org/data/3.0/onecall"
+    params = {
+        "lat": latitude,
+        "lon": longitude,
+        "exclude": "minutely,hourly,daily,alerts",
+        "appid": api_key,
+    }
+
+    response = requests.get(url, params=params, timeout=8)
+    response.raise_for_status()
+
+    data = response.json()
+    uvi = data.get("current",{}).get("uvi")
+
+    if uvi is None:
+        raise ValueError("UV index not found in open weather response")
+
+    return round(float(uvi),1)
 
 def get_current_uv(location_name: str | None = None) -> UVReading:
     location = get_or_create_default_location()
-    uv_value = mock_uv_value()
+
+    try:
+        uv_value = get_real_uv_value(location.latitude, location.longitude)
+    except Exception as e:
+        print(f"OpenWeather UV fetch failed: {e}")
+        uv_value = mock_uv_value()
+
     risk_label, burn_minutes = classify_uv(uv_value)
+
     reading = UVReading.objects.create(
         location=location,
         uv_index=uv_value,

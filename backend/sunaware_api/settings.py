@@ -30,7 +30,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "true").lower() == "true"
 
 ALLOWED_HOSTS = [host for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",") if host]
 
-
+OPENWEATHER_API_KEY = os.getenv("VITE_OPENWEATHER_API","")
 # Application definition
 
 INSTALLED_APPS = [

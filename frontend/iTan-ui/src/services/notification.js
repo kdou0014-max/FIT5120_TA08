@@ -33,5 +33,5 @@ export const notifyHighUV = (uvValue) => {
     tag: `uv-alert-${Date.now()}`,
     requireInteraction: true,
   })
-
+  console.log("test")
 }
