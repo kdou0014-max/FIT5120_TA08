@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="uv-meta">
-          <span>{{ locationLebel }}</span>
+          <span>{{ props.locationLabel }}</span>
           <span>Updated {{ lastUpdated }}</span>
         </div>
       </section>
@@ -37,7 +37,7 @@
             :key="card.title"
             class="advice-card"
           >
-            <div class="iron-warp">{{ card.icon }}</div>
+            <div class="icon-warp">{{ card.icon }}</div>
             <div>
               <h4>{{ card.title }}</h4>
               <p>{{ card.desc }}</p>
@@ -70,7 +70,7 @@
 
       <section class="section-block tips-card">
         <h3>Pro tips</h3>
-        <ul class="tip-list">
+        <ul class="tips-list">
           <li v-for="tip in targetedAdvice.tips" :key="tip">{{ tip }}</li>
         </ul>
       </section>

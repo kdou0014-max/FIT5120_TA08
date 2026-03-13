@@ -17,6 +17,7 @@ export const fetchUVMessage = async (uvValue) => {
 
 export const fetchCancerStats = async () => {
   const response = await apiClient.get('cancer-stats/')
+  console.log('cancer-stats response:', response.data)
   return response.data.data
 }
 
