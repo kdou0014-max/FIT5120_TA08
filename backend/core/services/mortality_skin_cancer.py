@@ -1,17 +1,17 @@
 from pathlib import Path
 import pandas as pd
 
-# resolves project root directory
+# gets project root directory
 BASE_DIR = Path(__file__).resolve().parents[3]
 
 # paths to input and output datasets
 file_path = BASE_DIR/"data"/"mortality_melanoma.xlsx"
 output_path = BASE_DIR/"data"/"mortality_melanoma_10yr.xlsx"
 
-# reads the Excel sheet containing melanoma mortality
+# excel file containing melanoma mortality
 df = pd.read_excel(file_path, sheet_name="Table S2a.1", header=5)
 
-# keeps only the required columns
+# keeps only the required columns for the visualization
 df = df[
     [
         "Data type",

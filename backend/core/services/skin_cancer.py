@@ -1,17 +1,17 @@
 from pathlib import Path
 import pandas as pd
 
-# gets the project root directory
+# gets project root directory
 BASE_DIR = Path(__file__).resolve().parents[3]
 
-# file paths
+# paths to input and output datasets
 file_path = BASE_DIR/"data"/"cancer_incidence.xlsx"
 output_path = BASE_DIR/"data"/"skin_melanoma.xlsx"
 
-# reads the Excel sheet containing the melanoma dataset
+# excel file containing the melanoma dataset
 df = pd.read_excel(file_path, sheet_name="Table S1a.1", header=5)
 
-# keeps only the required columns for the analysis
+# keeps only the required columns for the visualization
 df = df[
     [
         "Data type",
@@ -48,10 +48,10 @@ result["Age-specific rate\n(per 100,000)"] = (result["Count"] / result["populati
 # removes the temporary population column
 result = result.drop(columns=["population"])
 
-# saves the processed dataset
+# saves the processed dataset to the shared data folder
 result.to_excel(output_path, index=False)
 
-print(result.head())
+#print(result.head())
 
 # Data source reference
 # The melanoma incidence data used in this script originates
