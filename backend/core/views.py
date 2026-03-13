@@ -81,13 +81,13 @@ class ProtectionAdviceView(APIView):
 
 
 def build_warning(uv_value: float, risk_label: str, burn_minutes: int | None) -> str:
-    suffix = f"Your skin may burn in about {burn_minutes} minutes." if burn_minutes else "Protect your skin."
+    suffix = f"Unprotected skin will burn within {burn_minutes} minutes." if burn_minutes else "Protect your skin."
     additions = {
-        "Low": "Protection optional unless outside for extended periods.",
-        "Moderate": "Slip on a shirt and apply SPF30+ sunscreen.",
-        "High": "Add a wide-brim hat and sunglasses.",
-        "Very High": "Seek shade during peak hours (10am-3pm).",
-        "Extreme": "Minimise time outdoors, cover up fully.",
+        "Low": "Use SPF 30+ sunscreen when outside for extended periods.",
+        "Moderate": "Wear sunglasses and reapply sunscreen every two hours.",
+        "High": "Add a wide-brim hat and sunglasses. Reapply SPF 50+ sunscreen immediately after swimming.",
+        "Very High": "Seek shade during peak hours (10am-3pm). Wear UV protective clothing.",
+        "Extreme": "Avoid direct contact with sunlight, cover up fully.",
     }
     advice = additions.get(risk_label, "Use multiple sun protection measures.")
     return f"UV {uv_value} ({risk_label}). {suffix} {advice}"
