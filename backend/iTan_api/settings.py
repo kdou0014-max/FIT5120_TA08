@@ -5,17 +5,17 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+load_dotenv(BASE_DIR / ".env")
 MYSQL_HOST = os.environ.get("MYSQLHOST")
 MYSQL_PORT = os.environ.get("MYSQLPORT", "3306")
 MYSQL_USER = os.environ.get("MYSQLUSER")
 MYSQL_PASSWORD = os.environ.get("MYSQLPASSWORD")
 MYSQL_DATABASE = os.environ.get("MYSQLDATABASE")
-load_dotenv(BASE_DIR / ".env")
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-change-me")
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-ALLOWED_HOSTS = [host for host in os.environ.get("ALLOWED_HOSTS", "*").split(",") if host]
+
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-secret-change-me")
+DEBUG = os.environ.get("DJANGO_DEBUG", "False").lower() == "true"
+ALLOWED_HOSTS = [host for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",") if host]
 
 OPENWEATHER_API_KEY = os.getenv("VITE_OPENWEATHER_API", "")
 
